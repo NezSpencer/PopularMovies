@@ -1,0 +1,77 @@
+package com.nezspencer.popularmovies;
+
+import android.util.Log;
+
+import com.nezspencer.popularmovies.InjectionClass;
+import com.nezspencer.popularmovies.MovieContract;
+import com.nezspencer.popularmovies.MovieDB;
+import com.nezspencer.popularmovies.pojo.MovieDatabase;
+import com.nezspencer.popularmovies.pojo.MovieDatabaseResults;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import rx.Observer;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
+
+/**
+ * Created by nezspencer on 4/14/17.
+ */
+
+public class DashboardPresenter {
+
+    private MovieContract.MovieDashboard dashboard;
+    private Subscription subscription;
+    private Observer<MovieDatabaseResults[]> movieListObserver;
+    public DashboardPresenter(MovieContract.MovieDashboard movieDashboard) {
+        dashboard =movieDashboard;
+        movieListObserver = new Observer<MovieDatabaseResults[]>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if (e !=null && e.getMessage() != null)
+                {
+                    dashboard.showError(e.getMessage());
+                    e.printStackTrace();
+                    Log.e("error",e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onNext(MovieDatabaseResults[] movieResults) {
+                dashboard.displayLoadedMovies(new ArrayList<MovieDatabaseResults>(Arrays.asList(movieResults)));
+            }
+        };
+    }
+
+    public void getMovies(String sortCategory){
+        dashboard.showLoadingProgress();
+        String sortOrder =null;
+        if (sortCategory.equalsIgnoreCase("top rated"))
+        {
+            sortOrder ="top_rated";
+        }
+        else {
+            sortOrder = "popular";
+        }
+
+        subscription = InjectionClass.getRetrofit().create(MovieDB.class).getMovies(sortOrder)
+                .subscribeOn(Schedulers.computation())
+                .map(new Func1<MovieDatabase, MovieDatabaseResults[]>() {
+                    @Override
+                    public MovieDatabaseResults[] call(MovieDatabase movieDatabase) {
+                        return movieDatabase.getResults();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(movieListObserver);
+    }
+}
