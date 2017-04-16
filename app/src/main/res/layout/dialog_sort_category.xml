@@ -12,7 +12,7 @@
                 android:id="@+id/radio_popular"
                 android:layout_width="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Popular movies"
+                android:text="@string/popular_movies"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_height="wrap_content"/>
@@ -20,7 +20,7 @@
         <RadioButton
                 android:id="@+id/radio_top_rated"
                 android:layout_marginTop="8dp"
-                android:text="Top rated movies"
+                android:text="@string/top_rated_movies"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"

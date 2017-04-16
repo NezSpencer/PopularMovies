@@ -1,5 +1,6 @@
 package com.nezspencer.popularmovies;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ public class MovieDetailPage extends AppCompatActivity {
     @Bind(R.id.tv_release_date)TextView movieReleaseTextView;
     @Bind(R.id.tv_rating_score)TextView movieRatingTextView;
     @Bind(R.id.tv_summary)TextView movieSummaryTextView;
+    @Bind(R.id.tv_synopsis)TextView synopsisTextView;
 
     private MovieDatabaseResults movie;
     private static String baseUrl= "http://image.tmdb.org/t/p/w185/";
@@ -40,13 +42,24 @@ public class MovieDetailPage extends AppCompatActivity {
             Glide.with(this).load(url).into(moviePoster);
 
 
-            movieReleaseTextView.setText("Release date: "+formatDate(movie.getRelease_date()));
-            movieRatingTextView.setText(""+movie.getVote_average());
+            movieReleaseTextView.setText(formatDate(movie.getRelease_date()));
+            movieRatingTextView.setText(String.valueOf(movie.getVote_average()));
             movieSummaryTextView.setText(movie.getOverview());
             movieTitleTextView.setText(movie.getOriginal_title());
         }
 
+        setFontToTextViews();
 
+
+
+    }
+
+    public void setFontToTextViews(){
+        movieReleaseTextView.setTypeface(Typeface.createFromAsset(getAssets(),"Roboto-Regular.ttf"));
+        movieTitleTextView.setTypeface(Typeface.createFromAsset(getAssets(),"Roboto-Regular.ttf"));
+        movieSummaryTextView.setTypeface(Typeface.createFromAsset(getAssets(),"Roboto-Light.ttf"));
+        movieRatingTextView.setTypeface(Typeface.createFromAsset(getAssets(),"Roboto-Regular.ttf"));
+        synopsisTextView.setTypeface(Typeface.createFromAsset(getAssets(),"Roboto-Regular.ttf"));
     }
 
     public static String formatDate(String dateString){

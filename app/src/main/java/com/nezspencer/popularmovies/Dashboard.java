@@ -26,7 +26,7 @@ public class Dashboard extends AppCompatActivity implements MovieContract.MovieD
     private ArrayList<MovieDatabaseResults> movieList;
     private static DashboardPresenter presenter;
 
-    private static String sortValue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +34,8 @@ public class Dashboard extends AppCompatActivity implements MovieContract.MovieD
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
         presenter = new DashboardPresenter(this);
-        sortValue = "top rated";
-        presenter.getMovies(sortValue);
+
+        presenter.getMovies(App.SortOrder);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("loading...");
         progressDialog.setCanceledOnTouchOutside(false);
@@ -65,12 +65,12 @@ public class Dashboard extends AppCompatActivity implements MovieContract.MovieD
 
     @OnClick(R.id.fab_sort)
     public void selectSortType(){
-        SortCategoryFragment.newInstance(sortValue).show(getSupportFragmentManager(),"sort");
+        SortCategoryFragment.newInstance(App.SortOrder).show(getSupportFragmentManager(),"sort");
     }
 
     public static void initiateSort(String sortOrder){
         presenter.getMovies(sortOrder);
-        sortValue = sortOrder;
+        App.SortOrder = sortOrder;
     }
 
     @Override

@@ -2,9 +2,7 @@ package com.nezspencer.popularmovies;
 
 import android.util.Log;
 
-import com.nezspencer.popularmovies.InjectionClass;
-import com.nezspencer.popularmovies.MovieContract;
-import com.nezspencer.popularmovies.MovieDB;
+import com.nezspencer.popularmovies.api.MovieDB;
 import com.nezspencer.popularmovies.pojo.MovieDatabase;
 import com.nezspencer.popularmovies.pojo.MovieDatabaseResults;
 
@@ -24,7 +22,12 @@ import rx.schedulers.Schedulers;
 public class DashboardPresenter {
 
     private MovieContract.MovieDashboard dashboard;
+
+    /**Insert your Api key for MovieDB here**/
+    private static final String API_KEY="";
+
     private Subscription subscription;
+
     private Observer<MovieDatabaseResults[]> movieListObserver;
     public DashboardPresenter(MovieContract.MovieDashboard movieDashboard) {
         dashboard =movieDashboard;
@@ -63,7 +66,7 @@ public class DashboardPresenter {
             sortOrder = "popular";
         }
 
-        subscription = InjectionClass.getRetrofit().create(MovieDB.class).getMovies(sortOrder)
+        subscription = InjectionClass.getRetrofit().create(MovieDB.class).getMovies(sortOrder,API_KEY)
                 .subscribeOn(Schedulers.computation())
                 .map(new Func1<MovieDatabase, MovieDatabaseResults[]>() {
                     @Override
