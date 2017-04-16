@@ -26,8 +26,7 @@ public class MovieDetailPage extends AppCompatActivity {
     @Bind(R.id.tv_summary)TextView movieSummaryTextView;
     @Bind(R.id.tv_synopsis)TextView synopsisTextView;
 
-    private MovieDatabaseResults movie;
-    private static String baseUrl= "http://image.tmdb.org/t/p/w185/";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +34,8 @@ public class MovieDetailPage extends AppCompatActivity {
         setContentView(R.layout.activity_movie_detail);
         ButterKnife.bind(this);
 
+        MovieDatabaseResults movie;
+        String baseUrl= "http://image.tmdb.org/t/p/w185/";
         if (getIntent().hasExtra("movie"))
         {
             movie = getIntent().getParcelableExtra("movie");

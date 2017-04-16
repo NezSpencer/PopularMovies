@@ -2,10 +2,11 @@ package com.nezspencer.popularmovies;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.nezspencer.popularmovies.pojo.MovieDatabaseResults;
@@ -14,11 +15,9 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class Dashboard extends AppCompatActivity implements MovieContract.MovieDashboard{
 
-    @Bind(R.id.fab_sort)FloatingActionButton sortListFab;
     @Bind(R.id.rv_movie_list)RecyclerView movieListRecycler;
     private ProgressDialog progressDialog;
 
@@ -64,11 +63,6 @@ public class Dashboard extends AppCompatActivity implements MovieContract.MovieD
         progressDialog.dismiss();
     }
 
-    @OnClick(R.id.fab_sort)
-    public void selectSortType(){
-        SortCategoryFragment.newInstance(sortOrdering).show(getSupportFragmentManager(),"sort");
-    }
-
     public static void initiateSort(String sortOrder){
         presenter.getMovies(sortOrder);
         sortOrdering = sortOrder;
@@ -79,5 +73,28 @@ public class Dashboard extends AppCompatActivity implements MovieContract.MovieD
         if (progressDialog !=null && !progressDialog.isShowing())
             progressDialog.show();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.sort_popularity)
+        {
+            initiateSort("popular");
+            return true;
+        }
+
+        else if (item.getItemId() == R.id.sort_top_rated)
+        {
+            initiateSort("top rated");
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

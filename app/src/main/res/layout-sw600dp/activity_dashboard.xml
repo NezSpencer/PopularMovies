@@ -17,11 +17,5 @@
             app:spanCount="4"
             android:layout_height="wrap_content" />
 
-    <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_sort"
-            android:src="@drawable/ic_sort_black_24dp"
-            android:layout_gravity="end|top"
-            android:layout_width="@dimen/fab_size"
-            android:layout_height="@dimen/fab_size"/>
 
 </FrameLayout>

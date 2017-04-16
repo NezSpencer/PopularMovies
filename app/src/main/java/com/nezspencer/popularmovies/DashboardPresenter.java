@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import rx.Observer;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -24,9 +23,8 @@ public class DashboardPresenter {
     private MovieContract.MovieDashboard dashboard;
 
     /**Insert your Api key for MovieDB here**/
-    private static final String API_KEY="";
+    private static final String API_KEY="489a8a13513ae376d847aa187080cb30";
 
-    private Subscription subscription;
 
     private Observer<MovieDatabaseResults[]> movieListObserver;
     public DashboardPresenter(MovieContract.MovieDashboard movieDashboard) {
@@ -57,7 +55,7 @@ public class DashboardPresenter {
 
     public void getMovies(String sortCategory){
         dashboard.showLoadingProgress();
-        String sortOrder =null;
+        String sortOrder;
         if (sortCategory.equalsIgnoreCase("top rated"))
         {
             sortOrder ="top_rated";
@@ -66,7 +64,7 @@ public class DashboardPresenter {
             sortOrder = "popular";
         }
 
-        subscription = InjectionClass.getRetrofit().create(MovieDB.class).getMovies(sortOrder,API_KEY)
+        InjectionClass.getRetrofit().create(MovieDB.class).getMovies(sortOrder,API_KEY)
                 .subscribeOn(Schedulers.computation())
                 .map(new Func1<MovieDatabase, MovieDatabaseResults[]>() {
                     @Override
