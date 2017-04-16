@@ -23,7 +23,7 @@ public class DashboardPresenter {
     private MovieContract.MovieDashboard dashboard;
 
     /**Insert your Api key for MovieDB here**/
-    private static final String API_KEY="489a8a13513ae376d847aa187080cb30";
+    private static final String API_KEY="";
 
 
     private Observer<MovieDatabaseResults[]> movieListObserver;
