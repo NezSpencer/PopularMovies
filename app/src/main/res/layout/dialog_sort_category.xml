@@ -11,19 +11,19 @@
         <RadioButton
                 android:id="@+id/radio_popular"
                 android:layout_width="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/inter_block_margin"
                 android:text="@string/popular_movies"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="@dimen/normal_text_size"
                 android:layout_height="wrap_content"/>
 
         <RadioButton
                 android:id="@+id/radio_top_rated"
                 android:layout_marginTop="8dp"
                 android:text="@string/top_rated_movies"
-                android:textSize="20sp"
+                android:textSize="@dimen/normal_text_size"
                 android:textStyle="bold"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="@dimen/inter_block_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

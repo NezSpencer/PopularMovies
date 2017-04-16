@@ -39,7 +39,10 @@ public class MovieDetailPage extends AppCompatActivity {
         {
             movie = getIntent().getParcelableExtra("movie");
             String url = baseUrl+movie.getPoster_path();
-            Glide.with(this).load(url).into(moviePoster);
+            Glide.with(this).load(url)
+                    .error(R.drawable.image_placeholder)
+                    .placeholder(R.drawable.image_placeholder)
+                    .into(moviePoster);
 
 
             movieReleaseTextView.setText(formatDate(movie.getRelease_date()));

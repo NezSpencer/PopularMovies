@@ -44,7 +44,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         String imageUrl = Uri.parse(baseUrl).buildUpon().appendEncodedPath(movies.get(position)
                 .getPoster_path()).toString();
         Log.e("checker",imageUrl);
-        Glide.with(context).load(imageUrl).into(holder.imageView);
+        Glide.with(context).load(imageUrl)
+                .error(R.drawable.image_placeholder)
+                .placeholder(R.drawable.image_placeholder)
+                .into(holder.imageView);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
