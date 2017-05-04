@@ -6,4 +6,21 @@
     <string name="release_date">Release date:</string>
     <string name="sort_popular">sort by popularity</string>
     <string name="sort_top_rated">sort by rating</string>
+    <string name="genre">Genre</string>
+    <string name="movie_trailers">Movie Trailers</string>
+    <string name="movie_reviews">Movie Reviews</string>
+    <string name="more_reviews">More reviews</string>
+    <string name="overview">Overview</string>
+    <string name="trailer_review">Trailers and Reviews</string>
+
+    <!--system fonts-->
+    <string name="font_family_light">sans-serif-light</string>
+    <string name="font_family_medium">sans-serif-medium</string>
+    <string name="font_family_regular">sans-serif</string>
+    <string name="font_family_condensed">sans-serif-condensed</string>
+    <string name="font_family_black">sans-serif-black</string>
+    <string name="font_family_thin">sans-serif-thin</string>
+    <string name="original_language">Original language</string>
+    <string name="favourites">Favourites</string>
+    <!--system fonts-->
 </resources>

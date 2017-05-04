@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginTop="@dimen/inter_block_margin"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/tv_title"
+            android:textSize="@dimen/big_text_size"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="@dimen/inter_view_margin"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/tv_rating_score"
+            android:textSize="@dimen/largest_text_size"
+            android:layout_below="@+id/tv_title"
+            android:textStyle="bold"
+            android:text="3.5"
+            android:layout_marginEnd="@dimen/inter_view_margin"
+            android:layout_marginRight="@dimen/inter_view_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <RatingBar
+            android:id="@+id/rb_user_rating"
+            style="?attr/ratingBarStyleSmall"
+            android:numStars="10"
+            android:stepSize="0.1"
+            android:layout_toRightOf="@+id/tv_rating_score"
+            android:layout_toEndOf="@+id/tv_rating_score"
+            android:layout_below="@+id/tv_title"
+            android:layout_alignTop="@+id/tv_rating_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/tv_number_pple_rated"
+            android:layout_width="wrap_content"
+            android:layout_alignBottom="@+id/tv_rating_score"
+            android:layout_toEndOf="@+id/tv_rating_score"
+            android:layout_toRightOf="@+id/tv_rating_score"
+            android:layout_height="wrap_content"/>
+
+    <View
+            android:id="@+id/stub_1"
+            android:layout_marginTop="@dimen/inter_block_margin"
+            android:background="@android:color/white"
+            android:layout_marginBottom="@dimen/inter_block_margin"
+            android:layout_below="@+id/tv_rating_score"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"/>
+
+    <TextView
+            android:id="@+id/tv_date"
+            android:textSize="@dimen/title_text_size"
+            android:layout_below="@+id/stub_1"
+            android:layout_marginEnd="@dimen/inter_view_margin"
+            android:layout_marginRight="@dimen/inter_view_margin"
+            android:text="@string/release_date"
+            android:layout_marginBottom="@dimen/inter_view_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:id="@+id/tv_release_date"
+            android:textSize="@dimen/title_text_size"
+            android:layout_toRightOf="@+id/tv_language_label"
+            android:layout_toEndOf="@+id/tv_language_label"
+            android:layout_marginStart="@dimen/view_side_margin"
+            android:layout_alignBaseline="@+id/tv_date"
+            android:layout_marginLeft="@dimen/view_side_margin"
+            android:layout_marginBottom="@dimen/inter_view_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/tv_language_label"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold"
+            android:layout_marginEnd="@dimen/inter_view_margin"
+            android:layout_marginRight="@dimen/inter_view_margin"
+            android:layout_below="@+id/tv_date"
+            android:text="@string/original_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/tv_language"
+            android:textSize="@dimen/title_text_size"
+            android:layout_alignBaseline="@+id/tv_language_label"
+            android:layout_toRightOf="@+id/tv_language_label"
+            android:layout_toEndOf="@+id/tv_language_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/tv_genre_label"
+            android:textSize="@dimen/title_text_size"
+            android:layout_width="wrap_content"
+            android:text="@string/genre"
+            android:textStyle="bold"
+            android:layout_marginRight="@dimen/inter_view_margin"
+            android:layout_marginEnd="@dimen/inter_view_margin"
+            android:layout_marginTop="@dimen/inter_view_margin"
+            android:layout_below="@+id/tv_language_label"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/tv_genre"
+            android:textSize="@dimen/title_text_size"
+            android:layout_alignBaseline="@+id/tv_genre_label"
+            android:layout_toRightOf="@+id/tv_language_label"
+            android:layout_toEndOf="@+id/tv_language_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <View
+            android:id="@+id/stub_2"
+            android:layout_marginTop="@dimen/inter_block_margin"
+            android:background="@android:color/white"
+            android:layout_marginBottom="@dimen/inter_block_margin"
+            android:layout_below="@+id/tv_genre_label"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"/>
+
+
+    <TextView
+            android:id="@+id/tv_synopsis"
+            android:textSize="@dimen/title_text_size"
+            android:text="@string/plot_synopsis"
+            android:textStyle="bold"
+            android:fontFamily="roboto"
+            android:layout_below="@+id/stub_2"
+            android:layout_marginBottom="@dimen/view_side_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:id="@+id/tv_summary"
+            android:textSize="@dimen/body_text_size"
+            android:layout_below="@+id/tv_synopsis"
+            android:layout_width="match_parent"
+            tools:text="@string/app_name"
+            android:layout_height="wrap_content"/>
+
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_favorite"
+            app:fabSize="mini"
+            android:src="@drawable/ic_action_important"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/inter_view_margin"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+</RelativeLayout>

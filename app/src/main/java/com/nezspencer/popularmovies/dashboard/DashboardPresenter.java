@@ -1,8 +1,13 @@
-package com.nezspencer.popularmovies;
+package com.nezspencer.popularmovies.dashboard;
 
 import android.util.Log;
+import android.util.SparseArray;
 
+import com.nezspencer.popularmovies.GlobalApp;
+import com.nezspencer.popularmovies.InjectionClass;
 import com.nezspencer.popularmovies.api.MovieDB;
+import com.nezspencer.popularmovies.pojo.AvailableGenre;
+import com.nezspencer.popularmovies.pojo.AvailableGenreGenres;
 import com.nezspencer.popularmovies.pojo.MovieDatabase;
 import com.nezspencer.popularmovies.pojo.MovieDatabaseResults;
 
@@ -20,14 +25,16 @@ import rx.schedulers.Schedulers;
 
 public class DashboardPresenter {
 
-    private MovieContract.MovieDashboard dashboard;
+    private DashboardContract.MovieDashboard dashboard;
 
     /**Insert your Api key for MovieDB here**/
-    private static final String API_KEY="";
+    private static final String API_KEY="489a8a13513ae376d847aa187080cb30";
 
 
     private Observer<MovieDatabaseResults[]> movieListObserver;
-    public DashboardPresenter(MovieContract.MovieDashboard movieDashboard) {
+    private Observer<AvailableGenreGenres[]> genreObserver;
+
+    public DashboardPresenter(DashboardContract.MovieDashboard movieDashboard) {
         dashboard =movieDashboard;
         movieListObserver = new Observer<MovieDatabaseResults[]>() {
             @Override
@@ -49,6 +56,24 @@ public class DashboardPresenter {
             @Override
             public void onNext(MovieDatabaseResults[] movieResults) {
                 dashboard.displayLoadedMovies(new ArrayList<MovieDatabaseResults>(Arrays.asList(movieResults)));
+            }
+        };
+
+
+        genreObserver = new Observer<AvailableGenreGenres[]>(){
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(AvailableGenreGenres[] availableGenreGenres) {
+                converToSparseArray(availableGenreGenres);
             }
         };
     }
@@ -74,5 +99,27 @@ public class DashboardPresenter {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(movieListObserver);
+    }
+
+    public void getGenres(){
+        InjectionClass.getRetrofit().create(MovieDB.class).getGenres(API_KEY)
+                .subscribeOn(Schedulers.computation())
+                .map(new Func1<AvailableGenre, AvailableGenreGenres[]>() {
+                    @Override
+                    public AvailableGenreGenres[] call(AvailableGenre availableGenre) {
+                        return availableGenre.getGenres();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(genreObserver);
+    }
+
+    public void converToSparseArray(AvailableGenreGenres[] genres){
+
+        SparseArray<String> sparseArray =new SparseArray<>();
+        for (AvailableGenreGenres genre: genres){
+            sparseArray.put(genre.getId(),genre.getName());
+        }
+        GlobalApp.setGenreMap(sparseArray);
     }
 }

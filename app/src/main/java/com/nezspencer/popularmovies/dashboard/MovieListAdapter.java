@@ -1,8 +1,9 @@
-package com.nezspencer.popularmovies;
+package com.nezspencer.popularmovies.dashboard;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.nezspencer.popularmovies.Constants;
+import com.nezspencer.popularmovies.R;
+import com.nezspencer.popularmovies.moviedetail.MovieDetailPage;
 import com.nezspencer.popularmovies.pojo.MovieDatabaseResults;
 
 import java.util.ArrayList;
@@ -53,7 +57,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
             @Override
             public void onClick(View view) {
                 Intent detailIntent =new Intent(context,MovieDetailPage.class);
-                detailIntent.putExtra("movie",movies.get(position));
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.KEY_DETAIL_MOVIE,movies.get(position));
+                detailIntent.putExtra(Constants.KEY_DETAIL_MOVIE,bundle);
                 context.startActivity(detailIntent);
             }
         });

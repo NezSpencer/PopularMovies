@@ -10,7 +10,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".Dashboard"
+        <activity android:name=".dashboard.Dashboard"
                     android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -19,11 +19,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MovieDetailPage"
+        <activity android:name=".moviedetail.MovieDetailPage"
                   android:launchMode="singleTop"
-                  android:parentActivityName=".Dashboard">
+                  android:parentActivityName=".dashboard.Dashboard">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                       android:value=".Dashboard" />
+                       android:value=".dashboard.Dashboard" />
         </activity>
     </application>
 

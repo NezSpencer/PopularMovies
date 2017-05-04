@@ -76,6 +76,21 @@ public class MovieDatabaseResults implements Parcelable {
         this.id = id;
     }
 
+    public String getOriginal_language() {
+        return original_language;
+    }
+
+    public int[] getGenre_ids() {
+        return genre_ids;
+    }
+
+    public String getBackdrop_path() {
+        return backdrop_path;
+    }
+
+    public int getVote_count() {
+        return vote_count;
+    }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {

@@ -1,4 +1,4 @@
-package com.nezspencer.popularmovies;
+package com.nezspencer.popularmovies.dashboard;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.nezspencer.popularmovies.R;
 import com.nezspencer.popularmovies.pojo.MovieDatabaseResults;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class Dashboard extends AppCompatActivity implements MovieContract.MovieDashboard{
+public class Dashboard extends AppCompatActivity implements DashboardContract.MovieDashboard {
 
     @Bind(R.id.rv_movie_list)RecyclerView movieListRecycler;
     private ProgressDialog progressDialog;
@@ -35,6 +36,7 @@ public class Dashboard extends AppCompatActivity implements MovieContract.MovieD
         ButterKnife.bind(this);
         presenter = new DashboardPresenter(this);
 
+        presenter.getGenres();
         presenter.getMovies(sortOrdering);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("loading...");
@@ -94,6 +96,11 @@ public class Dashboard extends AppCompatActivity implements MovieContract.MovieD
         {
             initiateSort("top rated");
             return true;
+        }
+
+        else if (item.getItemId() == R.id.favourite)
+        {
+
         }
         return super.onOptionsItemSelected(item);
     }

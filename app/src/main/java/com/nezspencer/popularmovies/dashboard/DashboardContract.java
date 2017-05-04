@@ -1,4 +1,4 @@
-package com.nezspencer.popularmovies;
+package com.nezspencer.popularmovies.dashboard;
 
 import com.nezspencer.popularmovies.pojo.MovieDatabaseResults;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by nezspencer on 4/13/17.
  */
 
-public interface MovieContract {
+public interface DashboardContract {
 
     interface MovieDashboard{
 
