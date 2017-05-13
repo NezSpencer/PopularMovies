@@ -16,7 +16,7 @@ import rx.subscriptions.CompositeSubscription;
 public class GlobalApp extends Application {
 
     /**Insert your Api key for MovieDB here**/
-    public static final String API_KEY="489a8a13513ae376d847aa187080cb30";
+    public static final String API_KEY="";
     public static final String imageBaseUrl= "http://image.tmdb.org/t/p/w500/";
     public static MovieDatabaseResults movieItem = new MovieDatabaseResults();
     private static GlobalApp context;
