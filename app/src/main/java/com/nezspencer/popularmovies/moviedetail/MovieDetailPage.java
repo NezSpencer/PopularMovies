@@ -2,10 +2,7 @@ package com.nezspencer.popularmovies.moviedetail;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -27,8 +24,6 @@ import com.nezspencer.popularmovies.database.LocalMovieContract;
 import com.nezspencer.popularmovies.pojo.MovieReviewResults;
 import com.nezspencer.popularmovies.pojo.PreviewResults;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -137,7 +132,7 @@ DetailContract, LoaderManager.LoaderCallbacks<String> {
         viewPager.setAdapter(moviePagerAdapter);
     }
 
-    public String saveImageToPhone(Bitmap image, String name){
+    /*public String saveImageToPhone(Bitmap image, String name){
 
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
         File directory = cw.getDir("popularMovies", Context.MODE_PRIVATE);
@@ -156,7 +151,7 @@ DetailContract, LoaderManager.LoaderCallbacks<String> {
             Log.e("SAVE_IMAGE", e.getMessage(), e);
             return null;
         }
-    }
+    }*/
 
     @OnClick(R.id.fab_favorite)
     public void makeFavorite(){
