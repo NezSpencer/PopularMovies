@@ -18,6 +18,10 @@ public interface DashboardContract {
 
         void showLoadingProgress();
 
+        void dismissProgress();
+
+        void fetchFavoritesFromDB();
+
 
     }
 }

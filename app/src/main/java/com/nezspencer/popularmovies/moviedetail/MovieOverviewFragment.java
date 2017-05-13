@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.nezspencer.popularmovies.Constants;
 import com.nezspencer.popularmovies.GlobalApp;
 import com.nezspencer.popularmovies.R;
-import com.nezspencer.popularmovies.pojo.MovieDatabaseResults;
 
 import java.util.Locale;
 
@@ -39,6 +38,10 @@ public class MovieOverviewFragment extends Fragment {
     @Bind(R.id.tv_language)TextView originalLanguage;
     @Bind(R.id.tv_number_pple_rated)TextView ratingFrequency; //number of pple that voted
 
+    private static String genre;
+
+    public static MovieOverviewFragment mInstance;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,36 +49,45 @@ public class MovieOverviewFragment extends Fragment {
 
         ButterKnife.bind(this,view);
 
-        MovieDatabaseResults movie;
-        String baseUrl= "http://image.tmdb.org/t/p/w500/";
-        if (getArguments() != null && getArguments().containsKey(Constants.KEY_DETAIL_MOVIE))
-        {
-            Bundle bundle = getArguments().getBundle(Constants.KEY_DETAIL_MOVIE);
-            movie = bundle.getParcelable(Constants.KEY_DETAIL_MOVIE);
-            String url = baseUrl+movie.getPoster_path();
+        mInstance = this;
+
+            String url = GlobalApp.imageBaseUrl+GlobalApp.movieItem.getPoster_path();
             Glide.with(this).load(url)
                     .error(R.drawable.image_placeholder)
                     .placeholder(R.drawable.image_placeholder)
                     .into(moviePoster);
 
 
-            movieReleaseTextView.setText(formatDate(movie.getRelease_date()));
-            ratingAverage.setText(String.valueOf(movie.getVote_average()));
-            movieSummaryTextView.setText(movie.getOverview());
-            movieTitleTextView.setText(movie.getOriginal_title());
-            ratingBar.setRating((float) movie.getVote_average());
-            ratingFrequency.setText(movie.getVote_count());
-            originalLanguage.setText(new Locale(movie.getOriginal_language()).getDisplayLanguage());
+            movieReleaseTextView.setText(formatDate(GlobalApp.movieItem.getRelease_date()));
+            ratingAverage.setText(String.valueOf(GlobalApp.movieItem.getVote_average()));
+            movieSummaryTextView.setText(GlobalApp.movieItem.getOverview());
+            movieTitleTextView.setText(GlobalApp.movieItem.getOriginal_title());
+            ratingBar.setRating((float) GlobalApp.movieItem.getVote_average());
+            ratingFrequency.setText(""+GlobalApp.movieItem.getVote_count()+" ratings");
+            originalLanguage.setText(new Locale(GlobalApp.movieItem.getOriginal_language())
+                    .getDisplayLanguage());
+
+        if (GlobalApp.shouldDisplayFavoriteMovies)
+            movieGenre.setText(GlobalApp.movieItem.getTitle());
+        else {
+
             movieGenre.setText("");
-            for (int id: movie.getGenre_ids()){
-                movieGenre.append(GlobalApp.getGenre(id));
+            if (GlobalApp.getGenres().size() > 0)
+            {
+                for (int id: GlobalApp.movieItem.getGenre_ids()){
+                    genre = GlobalApp.getGenre(id);
+                    movieGenre.append(genre);
 
-                if (movie.getGenre_ids()[movie.getGenre_ids().length - 1] != id)
-                    movieGenre.append(", ");
+                    if (GlobalApp.movieItem.getGenre_ids()[GlobalApp.movieItem.getGenre_ids().length - 1] != id)
+                        movieGenre.append(", ");
 
+                }
             }
-
         }
+
+        if (!TextUtils.isEmpty(movieGenre.getText().toString()))
+            genre = movieGenre.getText().toString();
+
 
         return  view;
     }
@@ -140,5 +152,9 @@ public class MovieOverviewFragment extends Fragment {
         }
 
         return dates[2]+" "+month+" "+dates[0];
+    }
+
+    public static String getGenre(){
+        return genre;
     }
 }

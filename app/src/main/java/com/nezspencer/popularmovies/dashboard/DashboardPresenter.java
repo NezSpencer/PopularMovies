@@ -26,9 +26,7 @@ import rx.schedulers.Schedulers;
 public class DashboardPresenter {
 
     private DashboardContract.MovieDashboard dashboard;
-
-    /**Insert your Api key for MovieDB here**/
-    private static final String API_KEY="489a8a13513ae376d847aa187080cb30";
+    private boolean isGenreDone, isMoviesDone;
 
 
     private Observer<MovieDatabaseResults[]> movieListObserver;
@@ -39,6 +37,12 @@ public class DashboardPresenter {
         movieListObserver = new Observer<MovieDatabaseResults[]>() {
             @Override
             public void onCompleted() {
+                isMoviesDone = true;
+                Log.e("LOGGER"," movies done");
+                if (isMoviesDone && isGenreDone)
+                {
+                    dashboard.dismissProgress();
+                }
 
             }
 
@@ -47,6 +51,12 @@ public class DashboardPresenter {
                 if (e !=null && e.getMessage() != null)
                 {
                     dashboard.showError(e.getMessage());
+                    isMoviesDone = true;
+                    if (isMoviesDone && isGenreDone)
+                    {
+                        dashboard.dismissProgress();
+                    }
+
                     e.printStackTrace();
                     Log.e("error",e.getMessage());
                 }
@@ -63,12 +73,24 @@ public class DashboardPresenter {
         genreObserver = new Observer<AvailableGenreGenres[]>(){
             @Override
             public void onCompleted() {
-
+                isGenreDone = true;
+                Log.e("LOGGER"," genre done");
+                if (isMoviesDone && isGenreDone)
+                {
+                    dashboard.dismissProgress();
+                }
             }
 
             @Override
             public void onError(Throwable e) {
+                isGenreDone = true;
+                Log.e("LOGGER"," genre error");
+                if (isMoviesDone && isGenreDone)
+                {
+                    dashboard.dismissProgress();
+                }
 
+                dashboard.showError(e.getMessage());
             }
 
             @Override
@@ -89,7 +111,7 @@ public class DashboardPresenter {
             sortOrder = "popular";
         }
 
-        InjectionClass.getRetrofit().create(MovieDB.class).getMovies(sortOrder,API_KEY)
+        InjectionClass.getRetrofit().create(MovieDB.class).getMovies(sortOrder,GlobalApp.API_KEY)
                 .subscribeOn(Schedulers.computation())
                 .map(new Func1<MovieDatabase, MovieDatabaseResults[]>() {
                     @Override
@@ -102,7 +124,7 @@ public class DashboardPresenter {
     }
 
     public void getGenres(){
-        InjectionClass.getRetrofit().create(MovieDB.class).getGenres(API_KEY)
+        InjectionClass.getRetrofit().create(MovieDB.class).getGenres(GlobalApp.API_KEY)
                 .subscribeOn(Schedulers.computation())
                 .map(new Func1<AvailableGenre, AvailableGenreGenres[]>() {
                     @Override
@@ -121,5 +143,9 @@ public class DashboardPresenter {
             sparseArray.put(genre.getId(),genre.getName());
         }
         GlobalApp.setGenreMap(sparseArray);
+    }
+
+    public void showFavoriteMovies(){
+        dashboard.fetchFavoritesFromDB();
     }
 }

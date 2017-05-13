@@ -114,4 +114,44 @@ public class MovieDatabaseResults implements Parcelable {
     public int describeContents() {
         return 0;
     }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public void setOriginal_language(String original_language) {
+        this.original_language = original_language;
+    }
+
+    public void setOriginal_title(String original_title) {
+        this.original_title = original_title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
+
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
+    }
+
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
+    }
+
+    public void setVote_average(double vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    public void setVote_count(int vote_count) {
+        this.vote_count = vote_count;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 }

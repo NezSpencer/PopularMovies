@@ -1,7 +1,10 @@
 package com.nezspencer.popularmovies.moviedetail;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +23,10 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
 
     private static final String BASE_YOUTUBE_URL="http://www.youtube.com/watch";
     private ArrayList<PreviewResults> previews;
-    public MovieTrailerAdapter(ArrayList<PreviewResults> previews) {
+    private Context context;
+    public MovieTrailerAdapter(Context context,ArrayList<PreviewResults> previews) {
         this.previews = previews;
+        this.context = context;
     }
 
     @Override
@@ -36,15 +41,30 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
     @Override
     public void onBindViewHolder(MovieHolder holder, int position) {
 
-        Uri videoUri= Uri.parse(BASE_YOUTUBE_URL).buildUpon()
+        final Uri videoUri= Uri.parse(BASE_YOUTUBE_URL).buildUpon()
                 .appendQueryParameter("v",previews.get(position).getKey())
                 .build();
-        holder.trailerVideo.setVideoURI(videoUri);
-        holder.trailerVideo.start();
+        /*try {
+            holder.trailerVideo.setVideoURI(videoUri);
+        }
+        catch (Exception e){
+
+        }*/
+
+        /*holder.trailerVideo.start();*/
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent youtubeIntent = new Intent(Intent.ACTION_VIEW,videoUri);
+                context.startActivity(youtubeIntent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
+        Log.e("LOGGER"," size = "+previews.size());
         return previews.size();
     }
 

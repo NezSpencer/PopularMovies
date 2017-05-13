@@ -11,11 +11,13 @@ import java.util.ArrayList;
 
 public interface DetailContract {
 
-    void startLoading();
+    void startLoadingProgress();
 
-    void stopLoading();
+    void stopLoadingProgress();
 
-    void onLoadFinished(ArrayList<PreviewResults> trailers, ArrayList<MovieReviewResults> reviews);
+    void onDataFetch(ArrayList<PreviewResults> trailers, ArrayList<MovieReviewResults> reviews);
 
     void showError(String message);
+
+    void startQuery();
 }

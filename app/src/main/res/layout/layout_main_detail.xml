@@ -115,6 +115,7 @@
             android:layout_alignBaseline="@+id/tv_genre_label"
             android:layout_toRightOf="@+id/tv_language_label"
             android:layout_toEndOf="@+id/tv_language_label"
+            android:layout_below="@+id/tv_language_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -123,7 +124,7 @@
             android:layout_marginTop="@dimen/inter_block_margin"
             android:background="@android:color/white"
             android:layout_marginBottom="@dimen/inter_block_margin"
-            android:layout_below="@+id/tv_genre_label"
+            android:layout_below="@+id/tv_genre"
             android:layout_width="match_parent"
             android:layout_height="3dp"/>
 
@@ -144,18 +145,6 @@
             android:layout_below="@+id/tv_synopsis"
             android:layout_width="match_parent"
             tools:text="@string/app_name"
-            android:layout_height="wrap_content"/>
-
-
-    <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_favorite"
-            app:fabSize="mini"
-            android:src="@drawable/ic_action_important"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="@dimen/inter_view_margin"
-            android:layout_alignParentEnd="true"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
 </RelativeLayout>

@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
-        android:padding="@dimen/inter_block_margin"
         tools:context="com.nezspencer.popularmovies.dashboard.Dashboard">
+
+    <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:minHeight="?attr/actionBarSize"
+            android:id="@+id/toolbar"
+            android:background="?attr/colorPrimary"
+             android:layout_height="wrap_content"/>
 
     <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/large_margin"
+            android:layout_below="@+id/toolbar"
+            android:padding="@dimen/inter_block_margin"
             android:id="@+id/rv_movie_list"
             app:layoutManager="GridLayoutManager"
-            app:spanCount="2"
+            app:spanCount="3"
             android:layout_height="wrap_content" />
 
 
-</FrameLayout>
+</RelativeLayout>

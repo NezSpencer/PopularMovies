@@ -8,4 +8,5 @@ public class Constants {
 
     public static final String TITLE="page title";
     public static final String KEY_DETAIL_MOVIE="movie";
+    public static final String MOVIE_ID="_id";
 }

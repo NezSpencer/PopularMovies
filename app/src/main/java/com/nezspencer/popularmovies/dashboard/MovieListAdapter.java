@@ -3,7 +3,6 @@ package com.nezspencer.popularmovies.dashboard;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,9 +56,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
             @Override
             public void onClick(View view) {
                 Intent detailIntent =new Intent(context,MovieDetailPage.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Constants.KEY_DETAIL_MOVIE,movies.get(position));
-                detailIntent.putExtra(Constants.KEY_DETAIL_MOVIE,bundle);
+                detailIntent.putExtra(Constants.KEY_DETAIL_MOVIE,movies.get(position));
                 context.startActivity(detailIntent);
             }
         });
