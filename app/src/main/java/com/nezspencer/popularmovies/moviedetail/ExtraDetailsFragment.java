@@ -70,9 +70,14 @@ public class ExtraDetailsFragment extends Fragment {
 
     public void initializeViews(){
 
-        trailerAdapter = new MovieTrailerAdapter(getActivity(),MovieDetailPage.mInstance.trailerList);
-        reviewAdapter = new ReviewAdapter(MovieDetailPage.mInstance.reviewResultList);
-        Log.e("LOGGER"," trailer size is "+MovieDetailPage.mInstance.trailerList.size());
+        trailerAdapter = new MovieTrailerAdapter(getActivity(),
+                MovieDetailPage.mInstance.trailerList.size() ==0?
+                        GlobalApp.trailers :
+                        MovieDetailPage.mInstance.trailerList);
+        reviewAdapter = new ReviewAdapter(
+                MovieDetailPage.mInstance.reviewResultList.size() == 0?
+        GlobalApp.reviews: MovieDetailPage.mInstance.reviewResultList);
+        Log.e("LOGGER"," trailer112 size is "+MovieDetailPage.mInstance.trailerList.size());
 
         trailerRecycler.setRecyclerListener(new RecyclerView.RecyclerListener() {
             @Override

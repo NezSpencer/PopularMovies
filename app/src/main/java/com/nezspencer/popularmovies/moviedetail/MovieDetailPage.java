@@ -2,7 +2,6 @@ package com.nezspencer.popularmovies.moviedetail;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -222,8 +221,7 @@ DetailContract, LoaderManager.LoaderCallbacks<String> {
     public void onDataFetch(ArrayList<PreviewResults> trailers, ArrayList<MovieReviewResults> reviews) {
         trailerList = trailers;
         reviewResultList = reviews;
-        GlobalApp.reviews = reviews;
-        GlobalApp.trailers = trailers;
+
         Log.e("LOGGER"," trailer size is "+trailerList.size());
         Log.e("LOGGER"," reviews size is "+reviewResultList.size());
 
@@ -502,9 +500,10 @@ DetailContract, LoaderManager.LoaderCallbacks<String> {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        isOrientationChanged = true;
+    protected void onStop() {
+        super.onStop();
+        GlobalApp.trailers = trailerList;
+        GlobalApp.reviews = reviewResultList;
     }
 }
 
