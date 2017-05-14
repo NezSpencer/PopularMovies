@@ -13,6 +13,9 @@
     <string name="overview">Overview</string>
     <string name="trailer_review">Trailers and Reviews</string>
 
+
+    <string name="API_KEY">489a8a13513ae376d847aa187080cb30</string>
+
     <!--system fonts-->
     <string name="font_family_light">sans-serif-light</string>
     <string name="font_family_medium">sans-serif-medium</string>

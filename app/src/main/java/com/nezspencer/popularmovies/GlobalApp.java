@@ -5,6 +5,10 @@ import android.content.Context;
 import android.util.SparseArray;
 
 import com.nezspencer.popularmovies.pojo.MovieDatabaseResults;
+import com.nezspencer.popularmovies.pojo.MovieReviewResults;
+import com.nezspencer.popularmovies.pojo.PreviewResults;
+
+import java.util.ArrayList;
 
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -15,11 +19,11 @@ import rx.subscriptions.CompositeSubscription;
 
 public class GlobalApp extends Application {
 
-    /**Insert your Api key for MovieDB here**/
-    public static final String API_KEY="";
     public static final String imageBaseUrl= "http://image.tmdb.org/t/p/w500/";
     public static MovieDatabaseResults movieItem = new MovieDatabaseResults();
     private static GlobalApp context;
+    public static ArrayList<PreviewResults> trailers = new ArrayList<>();
+    public static ArrayList<MovieReviewResults> reviews = new ArrayList<>();
 
     public static boolean shouldDisplayFavoriteMovies;
 

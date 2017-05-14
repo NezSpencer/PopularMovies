@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapter.MovieHolder> {
 
     private static final String BASE_YOUTUBE_URL="http://www.youtube.com/watch";
-    private ArrayList<PreviewResults> previews;
+    private static ArrayList<PreviewResults> previews;
     private Context context;
     public MovieTrailerAdapter(Context context,ArrayList<PreviewResults> previews) {
         this.previews = previews;
@@ -57,14 +57,21 @@ public class MovieTrailerAdapter extends RecyclerView.Adapter<MovieTrailerAdapte
             @Override
             public void onClick(View view) {
                 Intent youtubeIntent = new Intent(Intent.ACTION_VIEW,videoUri);
-                context.startActivity(youtubeIntent);
+                if (youtubeIntent.resolveActivity(context.getPackageManager()) != null)
+                    context.startActivity(youtubeIntent);
             }
         });
     }
 
+    public void updateList(ArrayList<PreviewResults> list){
+        previews.clear();
+        previews.addAll(list);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
-        Log.e("LOGGER"," size = "+previews.size());
+        Log.e("LOGGER"," adapter trailer size = "+previews.size());
         return previews.size();
     }
 

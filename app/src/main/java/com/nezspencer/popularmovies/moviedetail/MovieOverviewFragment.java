@@ -1,5 +1,6 @@
 package com.nezspencer.popularmovies.moviedetail;
 
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -33,6 +35,7 @@ public class MovieOverviewFragment extends Fragment {
     @Bind(R.id.tv_release_date)TextView movieReleaseTextView;
     @Bind(R.id.tv_summary)TextView movieSummaryTextView;
     @Bind(R.id.tv_genre)TextView movieGenre;
+    @Bind(R.id.scroller)ScrollView scrollView;
     @Bind(R.id.tv_synopsis)TextView synopsisTextView;
     @Bind(R.id.tv_rating_score)TextView ratingAverage;
     @Bind(R.id.tv_language)TextView originalLanguage;
@@ -49,6 +52,7 @@ public class MovieOverviewFragment extends Fragment {
 
         ButterKnife.bind(this,view);
 
+        scrollView.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
         mInstance = this;
 
             String url = GlobalApp.imageBaseUrl+GlobalApp.movieItem.getPoster_path();
@@ -152,6 +156,18 @@ public class MovieOverviewFragment extends Fragment {
         }
 
         return dates[2]+" "+month+" "+dates[0];
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        scrollView.clearFocus();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        scrollView.clearFocus();
     }
 
     public static String getGenre(){

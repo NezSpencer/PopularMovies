@@ -1,6 +1,5 @@
 package com.nezspencer.popularmovies.moviedetail;
 
-import com.nezspencer.popularmovies.GlobalApp;
 import com.nezspencer.popularmovies.InjectionClass;
 import com.nezspencer.popularmovies.api.MovieDB;
 import com.nezspencer.popularmovies.pojo.MovieReview;
@@ -31,9 +30,11 @@ public class DetailPresenter {
 
     private ArrayList<MovieReviewResults> reviews;
     private ArrayList<PreviewResults> trailers;
+    private String apiKey;
 
-    public DetailPresenter(DetailContract detailContract) {
+    public DetailPresenter(DetailContract detailContract, String key) {
         this.detailContract = detailContract;
+        apiKey = key;
         trailers = new ArrayList<>();
         reviews = new ArrayList<>();
         initializeObservers();
@@ -102,7 +103,7 @@ public class DetailPresenter {
     }
 
     private void fetchTrailers(String id){
-        InjectionClass.getRetrofit().create(MovieDB.class).getTrailers(id, GlobalApp.API_KEY)
+        InjectionClass.getRetrofit().create(MovieDB.class).getTrailers(id, apiKey)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Func1<Preview, PreviewResults[]>() {
@@ -116,7 +117,7 @@ public class DetailPresenter {
     }
 
     private void fetchReviews(String id){
-        InjectionClass.getRetrofit().create(MovieDB.class).getReviews(id,GlobalApp.API_KEY)
+        InjectionClass.getRetrofit().create(MovieDB.class).getReviews(id,apiKey)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Func1<MovieReview, MovieReviewResults[]>() {

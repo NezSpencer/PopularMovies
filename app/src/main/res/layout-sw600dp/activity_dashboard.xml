@@ -22,7 +22,7 @@
             android:layout_below="@+id/toolbar"
             android:padding="@dimen/inter_block_margin"
             app:layoutManager="GridLayoutManager"
-            app:spanCount="4"
+            app:spanCount="3"
             android:layout_height="wrap_content" />
 
 

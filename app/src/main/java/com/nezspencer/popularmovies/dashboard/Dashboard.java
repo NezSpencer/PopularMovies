@@ -45,7 +45,7 @@ public class Dashboard extends AppCompatActivity implements DashboardContract.Mo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
-        presenter = new DashboardPresenter(this);
+        presenter = new DashboardPresenter(this,getString(R.string.API_KEY));
         GlobalApp.shouldDisplayFavoriteMovies= false;
 
 
@@ -226,6 +226,18 @@ public class Dashboard extends AppCompatActivity implements DashboardContract.Mo
         }
 
         return savedMovies;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dismissProgress();
     }
 }
 

@@ -2,6 +2,7 @@ package com.nezspencer.popularmovies.moviedetail;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -59,6 +60,7 @@ DetailContract, LoaderManager.LoaderCallbacks<String> {
     public static final int DELETE_LOADER_ID = 20;
     public static final int QUERY_LOADER_ID = 30;
     private String key;
+    public static boolean isOrientationChanged;
 
 
     @Override
@@ -67,7 +69,7 @@ DetailContract, LoaderManager.LoaderCallbacks<String> {
         setContentView(R.layout.activity_movie_detail);
         ButterKnife.bind(this);
         mInstance = this;
-        presenter = new DetailPresenter(this);
+        presenter = new DetailPresenter(this,getString(R.string.API_KEY));
 
         setSupportActionBar(toolbar);
 
@@ -128,8 +130,12 @@ DetailContract, LoaderManager.LoaderCallbacks<String> {
         moviePagerAdapter = new MoviePagerAdapter(getSupportFragmentManager(),movieTabLayout
                 .getTabCount());
         movieTabLayout.setOnTabSelectedListener(this);
+        /*ViewGroup group = ((ViewGroup)viewPager.getParent());
+        group.removeView(viewPager);*/
 
         viewPager.setAdapter(moviePagerAdapter);
+
+
     }
 
     /*public String saveImageToPhone(Bitmap image, String name){
@@ -216,6 +222,10 @@ DetailContract, LoaderManager.LoaderCallbacks<String> {
     public void onDataFetch(ArrayList<PreviewResults> trailers, ArrayList<MovieReviewResults> reviews) {
         trailerList = trailers;
         reviewResultList = reviews;
+        GlobalApp.reviews = reviews;
+        GlobalApp.trailers = trailers;
+        Log.e("LOGGER"," trailer size is "+trailerList.size());
+        Log.e("LOGGER"," reviews size is "+reviewResultList.size());
 
         runOnUiThread(new Runnable() {
             @Override
@@ -485,6 +495,17 @@ DetailContract, LoaderManager.LoaderCallbacks<String> {
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopLoadingProgress();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        isOrientationChanged = true;
+    }
 }
 
 

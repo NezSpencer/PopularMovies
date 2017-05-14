@@ -31,9 +31,11 @@ public class DashboardPresenter {
 
     private Observer<MovieDatabaseResults[]> movieListObserver;
     private Observer<AvailableGenreGenres[]> genreObserver;
+    private String key;
 
-    public DashboardPresenter(DashboardContract.MovieDashboard movieDashboard) {
+    public DashboardPresenter(DashboardContract.MovieDashboard movieDashboard, String apikey) {
         dashboard =movieDashboard;
+        key = apikey;
         movieListObserver = new Observer<MovieDatabaseResults[]>() {
             @Override
             public void onCompleted() {
@@ -111,7 +113,7 @@ public class DashboardPresenter {
             sortOrder = "popular";
         }
 
-        InjectionClass.getRetrofit().create(MovieDB.class).getMovies(sortOrder,GlobalApp.API_KEY)
+        InjectionClass.getRetrofit().create(MovieDB.class).getMovies(sortOrder,key)
                 .subscribeOn(Schedulers.computation())
                 .map(new Func1<MovieDatabase, MovieDatabaseResults[]>() {
                     @Override
@@ -124,7 +126,7 @@ public class DashboardPresenter {
     }
 
     public void getGenres(){
-        InjectionClass.getRetrofit().create(MovieDB.class).getGenres(GlobalApp.API_KEY)
+        InjectionClass.getRetrofit().create(MovieDB.class).getGenres(key)
                 .subscribeOn(Schedulers.computation())
                 .map(new Func1<AvailableGenre, AvailableGenreGenres[]>() {
                     @Override

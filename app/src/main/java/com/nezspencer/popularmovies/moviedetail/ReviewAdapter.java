@@ -39,6 +39,12 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewHold
         holder.reviewTextView.setText(reviewResults.get(position).getContent());
     }
 
+    public void updateList(ArrayList<MovieReviewResults> list){
+        reviewResults.clear();
+        reviewResults.addAll(list);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return reviewResults.size();
