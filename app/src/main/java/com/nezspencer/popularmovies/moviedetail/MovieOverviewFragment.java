@@ -45,6 +45,10 @@ public class MovieOverviewFragment extends Fragment {
 
     public static MovieOverviewFragment mInstance;
 
+    /*madatoey empty constructor*/
+    public MovieOverviewFragment() {
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

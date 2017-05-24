@@ -61,6 +61,10 @@ public class ExtraDetailsFragment extends Fragment {
         return view;
     }
 
+    /*mandatory empty constructor*/
+    public ExtraDetailsFragment() {
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
